@@ -377,3 +377,563 @@ h1, h2, h3, h4 {
 .cookie-popup.is-hidden {
     transform: translateY(100%);
 }
+
+/* ==========================================================================
+   7. Стили для Hero-Секции (Этап 3.1)
+   ========================================================================== */
+   .hero {
+    position: relative;
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: var(--color-text);
+    text-align: center;
+    background-color: var(--color-background);
+    border-bottom: 3px solid var(--color-primary); /* Разделительная линия */
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: rgba(20, 30, 48, 0.75); /* Темный оверлей для читаемости */
+}
+
+.hero__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+.hero__content {
+    position: relative;
+    z-index: 3; /* Контент поверх оверлея */
+    max-width: 1000px;
+    padding: var(--space-md);
+    /* Добавляем бордер и тень, чтобы контент выделялся */
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-glow-primary);
+    background-color: rgba(20, 30, 48, 0.5);
+}
+
+.hero__title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+    text-shadow: var(--shadow-glow-primary);
+}
+
+.hero__highlight {
+    display: block;
+    color: var(--color-secondary); /* Янтарный акцент */
+    text-shadow: 0 0 5px var(--color-secondary);
+}
+
+.hero__text {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    color: var(--color-text);
+    text-shadow: none;
+    opacity: 0.9;
+}
+
+.hero__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+/* Десктопная версия */
+@media (min-width: 768px) {
+    .hero__highlight {
+        display: inline;
+    }
+    .hero__actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+/* ==========================================================================
+   8. Стили для Секции "Услуги" (Этап 3.2)
+   ========================================================================== */
+   .services {
+    padding: var(--space-xl) 0;
+    text-align: center;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-neutral);
+}
+
+.services__heading {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    margin-bottom: 0.75rem;
+}
+
+.services__subtext {
+    font-size: 1.15rem;
+    color: var(--color-text);
+    text-shadow: none;
+    opacity: 0.8;
+    max-width: 800px;
+    margin: 0 auto 3.5rem;
+    font-family: var(--font-body);
+}
+
+.services__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Стили для карточек Услуг */
+.service-card {
+    background-color: var(--color-neutral); /* Темный сине-серый фон карточки */
+    padding: var(--space-md);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3); /* Зеленое свечение */
+    text-align: left;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow-secondary); /* Янтарное свечение при наведении */
+    border-color: var(--color-secondary);
+}
+
+.service-card--featured {
+    border: 2px solid var(--color-secondary);
+    box-shadow: 0 0 15px var(--color-secondary); /* Яркий янтарный акцент */
+}
+
+.service-card__icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-primary);
+    filter: drop-shadow(0 0 5px var(--color-primary));
+    margin-bottom: 1rem;
+}
+
+.service-card__title {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+    text-shadow: 0 0 3px var(--color-primary);
+}
+
+.service-card__description {
+    font-size: 1rem;
+    margin-bottom: var(--space-md);
+    color: rgba(255, 255, 255, 0.8);
+    flex-grow: 1;
+}
+
+.service-card__link {
+    width: 100%;
+}
+
+/* Десктопная версия (>= 768px) */
+@media (min-width: 768px) {
+    .services__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+    }
+}
+
+/* ==========================================================================
+   9. Стили для Секции "Технологии" (Этап 3.3)
+   ========================================================================== */
+   .technology {
+    padding: var(--space-xl) 0;
+    text-align: center;
+    background-color: var(--color-neutral); /* Темный сине-серый фон */
+    border-bottom: 1px solid var(--color-primary);
+}
+
+.technology__heading {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    margin-bottom: 0.75rem;
+}
+
+.technology__subtext {
+    font-size: 1.15rem;
+    color: var(--color-text);
+    text-shadow: none;
+    opacity: 0.8;
+    max-width: 800px;
+    margin: 0 auto 3.5rem;
+    font-family: var(--font-body);
+}
+
+.technology__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 колонки на мобильных */
+    gap: var(--space-md);
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+}
+
+/* Стили для карточки Технологии */
+.tech-item {
+    background-color: var(--color-background); /* Глубокий Темно-синий фон */
+    padding: var(--space-md);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.4); /* Зеленое свечение */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.tech-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-secondary); /* Янтарный бордер при наведении */
+    box-shadow: var(--shadow-glow-secondary);
+}
+
+.tech-item__icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-secondary); /* Янтарные иконки */
+    filter: drop-shadow(0 0 4px var(--color-secondary));
+    margin-bottom: 0.75rem;
+}
+
+.tech-item__title {
+    font-size: 1.2rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-text);
+    text-shadow: 0 0 2px var(--color-primary);
+}
+
+/* Адаптивность для сетки */
+@media (min-width: 768px) {
+    .technology__grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 колонки на планшетах */
+        gap: var(--space-lg);
+    }
+}
+
+@media (min-width: 1024px) {
+    .technology__grid {
+        grid-template-columns: repeat(6, 1fr); /* 6 колонок на десктопе */
+        gap: var(--space-md);
+    }
+}
+/* ==========================================================================
+   10. Стили для Секции "Кейсы" (Этап 3.4)
+   ========================================================================== */
+   .cases {
+    padding: var(--space-xl) 0;
+    text-align: center;
+    background-color: var(--color-background); /* Черный фон */
+    border-bottom: 1px solid var(--color-primary);
+}
+
+.cases__heading {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    margin-bottom: 0.75rem;
+}
+
+.cases__subtext {
+    font-size: 1.15rem;
+    color: var(--color-text);
+    text-shadow: none;
+    opacity: 0.8;
+    max-width: 800px;
+    margin: 0 auto 3.5rem;
+    font-family: var(--font-body);
+}
+
+.cases__grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Одна колонка на мобильных */
+    gap: var(--space-lg);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Стили для карточки Кейса */
+.case-card {
+    background-color: var(--color-neutral);
+    padding: var(--space-md);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3); /* Зеленое свечение */
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.case-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow-secondary); /* Янтарное свечение при наведении */
+    border-color: var(--color-secondary);
+}
+
+.case-card__icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-secondary); /* Янтарные иконки */
+    filter: drop-shadow(0 0 4px var(--color-secondary));
+    margin-bottom: 1rem;
+}
+
+.case-card__title {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+    text-shadow: 0 0 2px var(--color-primary);
+    font-family: var(--font-heading);
+}
+
+.case-card__summary {
+    font-size: 1rem;
+    margin-bottom: var(--space-md);
+    color: rgba(255, 255, 255, 0.8);
+    flex-grow: 1;
+}
+
+.case-card__link {
+    width: 100%;
+}
+
+/* Адаптивность для сетки */
+@media (min-width: 768px) {
+    .cases__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-md);
+    }
+}
+
+/* ==========================================================================
+   11. Стили для Секции "Процесс" (Этап 3.5)
+   ========================================================================== */
+   .process {
+    padding: var(--space-xl) 0;
+    text-align: center;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-primary);
+    overflow: hidden;
+}
+
+.process__heading {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    margin-bottom: 0.75rem;
+}
+
+.process__subtext {
+    font-size: 1.15rem;
+    color: var(--color-text);
+    text-shadow: none;
+    opacity: 0.8;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-family: var(--font-body);
+}
+
+.process__timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    padding-top: 1rem;
+}
+
+/* Вертикальная линия */
+.process__timeline::before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    background-color: var(--color-primary);
+    left: 20px; /* Позиционирование слева на мобильных */
+    top: 0;
+    box-shadow: 0 0 5px var(--color-primary);
+}
+
+/* Стили для отдельного шага */
+.process-step {
+    position: relative;
+    margin-bottom: var(--space-lg);
+    padding-left: 60px; /* Отступ для контента */
+    text-align: left;
+    background-color: var(--color-neutral); /* Темный фон для шага */
+    padding: var(--space-md);
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3); /* Зеленое свечение */
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px var(--color-secondary);
+}
+
+/* Круглый индикатор шага (НОМЕР) */
+.process-step__number {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-secondary);
+    color: var(--color-background); /* Черный текст */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    border: 3px solid var(--color-background);
+    box-shadow: 0 0 8px var(--color-secondary);
+    transform: translateX(-50%);
+}
+
+.process-step__title {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+    text-shadow: 0 0 3px var(--color-primary);
+}
+
+.process-step__description {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Адаптивность для десктопа (Альтернирование) */
+@media (min-width: 768px) {
+    /* Линия по центру */
+    .process__timeline::before {
+        left: 50%;
+        margin-left: -1.5px;
+    }
+
+    /* Шаги справа от линии */
+    .process-step {
+        width: 48%;
+        margin-left: 52%;
+        padding-left: 30px;
+        padding-right: 15px;
+    }
+
+    .process-step__number {
+        left: 50%;
+        margin-left: -20px;
+        transform: none; /* Убираем translateX */
+    }
+
+    /* Шаги слева от линии */
+    .process-step:nth-child(even) {
+        margin-left: 0;
+        padding-left: 15px;
+        padding-right: 30px;
+        text-align: right;
+    }
+
+    .process-step:nth-child(even) .process-step__number {
+        left: auto;
+        right: 50%;
+        margin-right: -20px;
+    }
+}
+/* ==========================================================================
+   12. Стили для Секции "Результаты" (Этап 3.6)
+   ========================================================================== */
+   .results {
+    padding: var(--space-xl) 0;
+    text-align: center;
+    background-color: var(--color-background); /* Черный фон */
+    border-bottom: 1px solid var(--color-primary);
+}
+
+.results__heading {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    margin-bottom: 0.75rem;
+}
+
+.results__subtext {
+    font-size: 1.15rem;
+    color: var(--color-text);
+    text-shadow: none;
+    opacity: 0.8;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-family: var(--font-body);
+}
+
+.results__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    max-width: 1000px;
+    margin: 0 auto var(--space-lg);
+}
+
+/* Стили для блока Метрики */
+.metric-block {
+    background-color: var(--color-neutral); /* Темный фон для блока */
+    padding: var(--space-lg) var(--space-md);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.4); /* Янтарное свечение */
+    transition: all 0.3s ease;
+}
+
+.metric-block:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow-primary); /* Зеленое свечение при наведении */
+    border-color: var(--color-primary);
+}
+
+.metric-block__value {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 8vw, 4.5rem);
+    font-weight: 700;
+    color: var(--color-secondary); /* Янтарные цифры */
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 0 8px var(--color-secondary);
+}
+
+.metric-block__label {
+    font-size: 1rem;
+    color: var(--color-primary); /* Зеленый текст */
+    text-transform: uppercase;
+    text-shadow: 0 0 3px var(--color-primary);
+}
+
+/* Адаптивность для сетки */
+@media (min-width: 768px) {
+    .results__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+    }
+}
