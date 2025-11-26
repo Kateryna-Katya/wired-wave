@@ -937,3 +937,358 @@ h1, h2, h3, h4 {
         gap: var(--space-lg);
     }
 }
+/* ==========================================================================
+   13. Стили для Секции "Отзывы" (Этап 3.7 - РЕДИЗАЙН: СЛАЙДЕР)
+   ========================================================================== */
+.reviews {
+    padding: var(--space-xl) 0;
+    text-align: center;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-primary);
+}
+
+.reviews__heading {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    margin-bottom: 0.75rem;
+}
+
+.reviews__subtext {
+    font-size: 1.15rem;
+    color: var(--color-text);
+    text-shadow: none;
+    opacity: 0.8;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-family: var(--font-body);
+}
+
+/* Изменяем сетку для отображения одной карточки */
+.reviews__grid {
+    display: block;
+    position: relative;
+    min-height: 350px;
+    /* Добавляем высоту для предотвращения "прыжков" */
+    max-width: 600px;
+    /* Ограничиваем ширину для одной карточки */
+    margin: 0 auto;
+}
+
+/* Стили для карточки Отзыва */
+.review-card {
+    /* ... (оставляем общие стили) ... */
+    background-color: var(--color-neutral);
+    padding: var(--space-md);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+    /* Плавный переход */
+    display: none;
+    /* Скрыто по умолчанию */
+    opacity: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    /* Добавляем позиционирование, чтобы они лежали друг на друге */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Активная/Видимая карточка */
+.review-card--visible {
+    display: flex;
+    /* Показываем активную карточку */
+    opacity: 1;
+    border: 2px solid var(--color-primary);
+    box-shadow: var(--shadow-glow-primary);
+    position: relative;
+    /* Возвращаем в поток для определения высоты */
+}
+
+
+.review-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Заглушка для Фото */
+.review-card__photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 5px var(--color-secondary);
+    animation: photo-pulse 2s infinite ease-in-out;
+}
+
+.review-card__author {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    text-shadow: 0 0 3px var(--color-primary);
+    font-family: var(--font-body);
+    font-weight: 700;
+}
+
+.review-card__icon {
+    width: 32px;
+    height: 32px;
+    color: var(--color-secondary);
+    filter: drop-shadow(0 0 4px var(--color-secondary));
+    margin-bottom: 1rem;
+}
+
+.review-card__quote {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-text);
+    text-shadow: none;
+    margin-bottom: 0;
+}
+
+/* Индикатор слайдера */
+.reviews__indicator {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.indicator-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(76, 175, 80, 0.5);
+    border-radius: 50%;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.indicator-dot--active {
+    background-color: var(--color-secondary);
+    transform: scale(1.4);
+    box-shadow: 0 0 5px var(--color-secondary);
+}
+
+/* Ключевые кадры для анимации фото */
+@keyframes photo-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Удаляем медиа-запрос, чтобы сетка не ломала слайдер */
+@media (min-width: 768px) {
+    .reviews__grid {
+        max-width: 800px;
+    }
+}
+
+/* ==========================================================================
+   14. Стили для Секции "Контакты" (Этап 4.1)
+   ========================================================================== */
+.contact {
+    padding: var(--space-xl) 0;
+    text-align: center;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-secondary);
+    /* Янтарный разделитель */
+}
+
+.contact__heading {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    margin-bottom: 0.75rem;
+}
+
+.contact__subtext {
+    font-size: 1.15rem;
+    color: var(--color-text);
+    text-shadow: none;
+    opacity: 0.8;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-family: var(--font-body);
+}
+
+.contact__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* --- Контактная информация (Левая колонка) --- */
+.contact__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.info-block {
+    background-color: var(--color-neutral);
+    padding: var(--space-md);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.info-block:hover {
+    transform: translateX(5px);
+}
+
+.info-block__icon {
+    width: 32px;
+    height: 32px;
+    color: var(--color-secondary);
+    filter: drop-shadow(0 0 3px var(--color-secondary));
+    margin-bottom: 0.5rem;
+}
+
+.info-block__title {
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    text-shadow: 0 0 2px var(--color-primary);
+    margin-bottom: 0.25rem;
+}
+
+.info-block__detail {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* --- Форма (Правая колонка) --- */
+.contact__form {
+    background-color: var(--color-neutral);
+    padding: var(--space-lg);
+    border: 2px solid var(--color-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.form__title {
+    font-size: 1.8rem;
+    color: var(--color-secondary);
+    text-shadow: 0 0 5px var(--color-secondary);
+    margin-bottom: var(--space-md);
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: var(--space-sm);
+}
+
+.contact__form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-shadow: 0 0 1px var(--color-primary);
+    font-size: 0.9rem;
+}
+
+.contact__form input,
+.contact__form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border-radius: 5px;
+    font-family: var(--font-body);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    resize: vertical;
+}
+
+.contact__form input:focus,
+.contact__form textarea:focus {
+    border-color: var(--color-secondary);
+    outline: none;
+    box-shadow: 0 0 8px var(--color-secondary);
+}
+/* Дополнительные стили для CAPTCHA и чекбокса */
+
+.captcha-group {
+    margin-top: 1.5rem;
+    padding: 10px;
+    border: 1px dashed var(--color-primary);
+    border-radius: 5px;
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+.captcha-group label {
+    font-size: 1rem;
+    color: var(--color-text);
+    text-shadow: none;
+}
+
+.captcha-message {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-weight: 700;
+    min-height: 1.2rem;
+    /* Чтобы не прыгало при появлении сообщения */
+}
+
+.submission-message {
+    padding: 10px;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-radius: 5px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.policy-acceptance {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.policy-acceptance input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    cursor: pointer;
+}
+
+.policy-acceptance label {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    text-shadow: none;
+}
+
+.policy-acceptance a {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+/* Адаптивность для сетки */
+@media (min-width: 992px) {
+    .contact__grid {
+        grid-template-columns: 1fr 1.5fr;
+    }
+}

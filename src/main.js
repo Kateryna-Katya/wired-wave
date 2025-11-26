@@ -1,67 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ==========================================================================
-  // 1. Скрипт для мобильного меню (Header)
-  // ==========================================================================
-  const menuToggle = document.getElementById('menuToggle');
-  const headerNav = document.querySelector('.header__nav');
-  const navLinks = document.querySelectorAll('.nav__link');
+    // ==========================================================================
+    // 1. Мобильное меню
+    // ==========================================================================
+    const menuToggle = document.getElementById('menuToggle');
+    const headerNav = document.querySelector('.header__nav');
+    const navLinks = document.querySelectorAll('.nav__link');
 
-  const toggleMenu = () => {
-      headerNav.classList.toggle('is-open');
+    const toggleMenu = () => {
+        headerNav.classList.toggle('is-open');
 
-      const iconElement = menuToggle.querySelector('svg');
-      if (headerNav.classList.contains('is-open')) {
-          iconElement.setAttribute('data-lucide', 'x');
-      } else {
-          iconElement.setAttribute('data-lucide', 'menu');
-      }
-      lucide.createIcons();
-  };
+        const iconElement = menuToggle.querySelector('svg');
+        iconElement.setAttribute('data-lucide',
+            headerNav.classList.contains('is-open') ? 'x' : 'menu'
+        );
 
-  menuToggle.addEventListener('click', toggleMenu);
+        lucide.createIcons();
+    };
 
-  navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-          if (window.innerWidth < 768) {
-              setTimeout(() => {
-                  if (headerNav.classList.contains('is-open')) {
-                      toggleMenu();
-                  }
-              }, 200);
-          }
-      });
-  });
+    if (menuToggle) {
+        menuToggle.addEventListener('click', toggleMenu);
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 768 && headerNav.classList.contains('is-open')) {
+                toggleMenu();
+            }
+        });
+    });
 
 
-  // ==========================================================================
-  // 2. Скрипт для Cookie Pop-up (Этап 5)
-  // ==========================================================================
-  const cookiePopup = document.getElementById('cookiePopup');
-  const acceptCookiesButton = document.getElementById('acceptCookies');
-  const cookieAccepted = localStorage.getItem('wiredwave_cookies_accepted');
+    // ==========================================================================
+    // 2. Cookie Pop-up
+    // ==========================================================================
+    const cookiePopup = document.getElementById('cookiePopup');
+    const acceptCookiesButton = document.getElementById('acceptCookies');
+    const cookieAccepted = localStorage.getItem('wiredwave_cookies_accepted');
 
-  const showCookiePopup = () => {
-      if (!cookieAccepted) {
-          cookiePopup.classList.remove('is-hidden');
-      }
-  }
+    if (!cookieAccepted) {
+        cookiePopup?.classList.remove('is-hidden');
+    }
 
-  const hideCookiePopup = () => {
-      cookiePopup.classList.add('is-hidden');
-      localStorage.setItem('wiredwave_cookies_accepted', 'true');
-  }
+    acceptCookiesButton?.addEventListener('click', () => {
+        cookiePopup.classList.add('is-hidden');
+        localStorage.setItem('wiredwave_cookies_accepted', 'true');
+    });
 
-  showCookiePopup();
-  acceptCookiesButton.addEventListener('click', hideCookiePopup);
 
-  // ==========================================================================
-  // 3. JS Анимации (Сюда будут добавляться анимации Hero, AOS, формы и т.д.)
-  // ==========================================================================
-});
-
-// ==========================================================================
-    // 4. JS Анимация Hero-секции (Dynamic Network Flow)
+    // ==========================================================================
+    // 3. Hero Canvas Animation — Network Flow
     // ==========================================================================
     const canvas = document.getElementById('digitalGridCanvas');
 
@@ -70,25 +58,25 @@ document.addEventListener('DOMContentLoaded', () => {
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
-        const nodes = [];
-        const numNodes = 80;
+        const particles = [];
+        const numParticles = 80;
         const linkDistance = 150;
-        const particleSize = 1.5;
+        const size = 1.7;
 
-        const particleColor = 'rgba(255, 193, 7, 1)'; // Secondary Amber
+        const dotColor = 'rgba(255, 193, 7, 1)';       // Amber
+        const linkColor = '76, 175, 80';               // Green (rgb)
 
-        // Класс для частицы
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.speedY = (Math.random() - 0.5) * 0.6;
             }
 
             update() {
                 this.x += this.speedX;
-                this.y += this.vy;
+                this.y += this.speedY;
 
                 if (this.x < 0 || this.x > width) this.speedX *= -1;
                 if (this.y < 0 || this.y > height) this.speedY *= -1;
@@ -97,36 +85,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             draw() {
-                ctx.fillStyle = particleColor;
+                ctx.fillStyle = dotColor;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, particleSize, 0, Math.PI * 2);
-                ctx.shadowColor = particleColor;
+                ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
+                ctx.shadowColor = dotColor;
                 ctx.shadowBlur = 5;
                 ctx.fill();
                 ctx.shadowBlur = 0;
             }
         }
 
-        // Инициализация узлов
-        const initNodes = () => {
-            nodes.length = 0;
-            for (let i = 0; i < numNodes; i++) {
-                nodes.push(new Particle());
+        function initParticles() {
+            particles.length = 0;
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
             }
-        };
+        }
 
-        // Соединение частиц
-        function connect() {
-            ctx.lineWidth = 0.5;
+        function connectParticles() {
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < linkDistance) {
-                        ctx.strokeStyle = `rgba(76, 175, 80, ${0.5 - (distance / linkDistance / 2)})`; // Зеленая линия
-                        ctx.lineWidth = 1 - (distance / linkDistance * 0.8);
+                    if (dist < linkDistance) {
+                        ctx.strokeStyle = `rgba(${linkColor}, ${1 - dist / linkDistance})`;
+                        ctx.lineWidth = 1 - (dist / linkDistance);
 
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
@@ -137,24 +122,138 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Главный цикл анимации
-        function animateNetwork() {
-            requestAnimationFrame(animateNetwork);
-            // Создаем темный след
-            ctx.fillStyle = 'rgba(20, 30, 48, 0.4)';
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // мягкий темный след
+            ctx.fillStyle = 'rgba(20, 30, 48, 0.35)';
             ctx.fillRect(0, 0, width, height);
 
-            connect();
+            connectParticles();
             particles.forEach(p => p.update());
         }
 
-        // Адаптивность и запуск
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-            initNodes();
+            initParticles();
         });
 
-        initNodes();
-        animateNetwork();
+        initParticles();
+        animate();
     }
+
+
+    // ==========================================================================
+    // 4. Слайдер отзывов
+    // ==========================================================================
+    const reviewCards = document.querySelectorAll('.reviews__grid .review-card');
+    const indicatorDots = document.querySelectorAll('.reviews__indicator .indicator-dot');
+    let currentReview = 0;
+
+    if (reviewCards.length > 0) {
+        setInterval(() => {
+            reviewCards.forEach(card => card.classList.remove('review-card--visible'));
+            indicatorDots.forEach(dot => dot.classList.remove('indicator-dot--active'));
+
+            currentReview = (currentReview + 1) % reviewCards.length;
+
+            reviewCards[currentReview].classList.add('review-card--visible');
+            indicatorDots[currentReview].classList.add('indicator-dot--active');
+
+        }, 2000);
+    }
+
+});
+// ==========================================================================
+    // 8. JS Логика Формы Контактов и CAPTCHA (Этап 4)
+    // ==========================================================================
+    const contactForm = document.getElementById('contactForm');
+    const captchaDisplay = document.getElementById('captchaDisplay');
+    const captchaInput = document.getElementById('captchaInput');
+    const captchaMessage = document.getElementById('captchaMessage');
+    const submissionMessage = document.getElementById('submissionMessage');
+    const policyAccept = document.getElementById('policyAccept');
+    
+    let correctAnswer = 0;
+
+    /**
+     * Генерирует простой математический пример (CAPTCHA).
+     */
+    function generateCaptcha() {
+        const operator = Math.random() < 0.5 ? '+' : '-';
+        let num1 = Math.floor(Math.random() * 15) + 5;
+        let num2 = Math.floor(Math.random() * 10) + 1;
+        
+        // Гарантируем неотрицательный результат
+        if (operator === '-' && num1 < num2) {
+            [num1, num2] = [num2, num1];
+        }
+
+        correctAnswer = operator === '+' ? num1 + num2 : num1 - num2;
+        captchaDisplay.textContent = `${num1} ${operator} ${num2} = ?`;
+        captchaMessage.textContent = ''; 
+        captchaInput.value = ''; 
+    }
+
+    /**
+     * Валидирует ответ CAPTCHA.
+     * @returns {boolean} True, если ответ верный.
+     */
+    function validateCaptcha() {
+        if (!captchaInput.value.trim()) {
+            captchaMessage.textContent = 'Пожалуйста, решите пример.';
+            captchaMessage.style.color = '#FF4545'; // Красный
+            return false;
+        }
+
+        const userAnswer = parseInt(captchaInput.value.trim());
+        if (userAnswer === correctAnswer) {
+            captchaMessage.textContent = 'Капча успешно пройдена!';
+            captchaMessage.style.color = 'var(--color-primary)';
+            return true;
+        } else {
+            captchaMessage.textContent = 'Неверный ответ. Попробуйте еще раз.';
+            captchaMessage.style.color = '#FF4545';
+            generateCaptcha(); 
+            return false;
+        }
+    }
+
+    // Инициализация CAPTCHA при загрузке страницы
+    generateCaptcha();
+
+    // Обработчик отправки формы
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        submissionMessage.style.display = 'none'; 
+
+        const isCaptchaValid = validateCaptcha();
+        const isPolicyAccepted = policyAccept.checked;
+
+        if (isCaptchaValid && isPolicyAccepted) {
+            
+            // Имитация успешной отправки данных
+            console.log('Form Submitted and Validated:', {
+                name: document.getElementById('contactName').value,
+                email: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value,
+            });
+
+            // Показываем сообщение об успехе ТОЛЬКО после успешной валидации
+            submissionMessage.style.display = 'block';
+            
+            // Сброс формы и генерация новой капчи
+            contactForm.reset();
+            generateCaptcha();
+            
+            // Автоматически скрываем сообщение через 5 секунд
+            setTimeout(() => {
+                submissionMessage.style.display = 'none';
+            }, 5000);
+
+        } else if (!isPolicyAccepted) {
+            alert('Пожалуйста, примите условия использования и политику конфиденциальности.');
+            policyAccept.focus();
+        } 
+    });
